@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -21,7 +22,8 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <span class="white-text" style="font-size: 1.75em; font-weight: bold; padding-left: 1em;">MCSR Mod List</span>
+                <span class="white-text" style="font-size: 1.75em; font-weight: bold; padding-left: 1em;">MCSR Mod
+                    List</span>
             </div>
         </nav>
     </div>
@@ -32,25 +34,15 @@
             <div style="font-size: 1.5em; text-align: center; color: rgb(255, 87, 87);">Do not use Fabric API!</div>
             </br>
             <div style="text-align: center;">
-                <a class="waves-effect waves-light btn" href="http://bombch.us/DOOK" target="_blank">Mods & Optifine Rules Document</a>
+                <a class="waves-effect waves-light btn" href="http://bombch.us/DOOK" target="_blank">Mods & Optifine
+                    Rules Document</a>
             </div>
+            </br>
+            <div id="fabric_text" style="font-size: 1em; text-align: center;"></div>
+            <div id="optifine_text" style="font-size: 1em; text-align: center;"></div>
             </br>
             <div class="row">
                 <div class="col s3">
-                    <p>Resource Type</p>
-                    <p>
-                        <label>
-                            <input class="with-gap" name="resource-type" type="radio" value="mods" checked />
-                            <span>Mods</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input class="with-gap" name="resource-type" type="radio" value="modpack" />
-                            <span>Modpack</span>
-                        </label>
-                    </p>
-                    <br>
                     <p>Minecraft Version</p>
                     <div class="input-field" id="game-versions">
                     </div>
@@ -98,12 +90,14 @@
                     <p>Additional Options</p>
                     <p>
                         <label>
-                            <input type="checkbox" name="medical-issue" class="filled-in" />
-                            <span>Accessibility Mods<p style="padding-left: 35px;" class="light-font description">You may utilize these mods ONLY if you tell the MCSR Team about a medical condition that makes them necessary in advance.</p></span>
+                            <input type="checkbox" name="accessibility" class="filled-in" />
+                            <span>Accessibility Mods<p style="padding-left: 35px;" class="light-font description">You
+                                    may utilize these mods ONLY if you tell the MCSR Team about a medical condition that
+                                    makes them necessary in advance.</p></span>
                         </label>
                     </p>
                 </div>
-        
+
                 <div class="col s9">
                     <ul class="collapsible" id="resources-tab">
                     </ul>
@@ -130,4 +124,5 @@
     });
 </script>
 <script src="./index.js"></script>
+
 </html>
