@@ -136,8 +136,8 @@ function rulesCheck(mod) {
     if (mod.modid == "sodium" && typeOptions.os == "osx") return false
     if (mod.traits.length != 0)
         for (const rule of mod.traits) {
-            if (rule == "ssg-only" && typeOptions.run != "rsg") return false
-            if (rule == "rsg-only" && typeOptions.run != "ssg") return false
+            if (rule == "ssg-only" && typeOptions.run == "rsg") return false
+            if (rule == "rsg-only" && typeOptions.run == "ssg") return false
             if (rule == "mac-only" && typeOptions.os != "osx") return false
             if (rule == "accessibility" && !typeOptions.accessibility) return false
         }
