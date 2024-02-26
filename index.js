@@ -132,7 +132,10 @@ function satisfiesVersion(game_version) {
 }
 
 function rulesCheck(mod) {
-    if (mod.modid == "sodium" && typeOptions.os == "osx") return false
+    if (mod.modid == "sodium" && typeOptions.os == "osx"
+        && mods.find(mod => mod.modid == "sodiummac" && mod.versions.find(version => version.target_version.includes(typeOptions.version)) != undefined)) {
+        return false
+    }
     if (mod.traits.length != 0)
         for (const rule of mod.traits) {
             if (rule == "ssg-only" && typeOptions.run == "rsg") return false
