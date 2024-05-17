@@ -8,13 +8,14 @@ const typeOptions = {
     version: "1.16.1",
     run: 'rsg',
     os: null,
-    accessibility: false
+    accessibility: false,
+    obsolete: false
 }
 
 function initVersions() {
     const params = new URLSearchParams(window.location.search);
     $('#game-versions').html(`<select id="game-versions-select" class="browser-default">${minecraft_versions.map(version => {
-        const selected = (params.has('version') ? version == params.get('version') : typeOptions.version == null);
+        const selected = (params.has('version') ? version == params.get('version') : typeOptions.version == "null");
         if (selected) {
             typeOptions.version = version;
         }
@@ -54,8 +55,8 @@ function initResources() {
 }
 
 $(document).ready(() => {
-    fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/main/important_versions.json").then(response => response.json()).then(it => minecraft_versions.push(...it)).then(_ => initVersions())
-    fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/main/mods.json").then(response => response.json()).then(json => {
+    fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/schema-6/important_versions.json").then(response => response.json()).then(it => minecraft_versions.push(...it)).then(_ => initVersions())
+    fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/schema-6/mods.json").then(response => response.json()).then(json => {
         for (const mod of json.mods) {
             mods.push(mod)
         }
@@ -76,6 +77,12 @@ $(document).ready(() => {
             const accessibilitySelected = $('input:checkbox[name="accessibility"]').is(":checked") == true;
             if (accessibilitySelected != typeOptions.accessibility) {
                 typeOptions.accessibility = accessibilitySelected;
+                needRefresh = true;
+            }
+
+            const obsoleteSelected = $('input:checkbox[name="obsolete"]').is(":checked") == true;
+            if (obsoleteSelected != typeOptions.obsolete) {
+                typeOptions.obsolete = obsoleteSelected;
                 needRefresh = true;
             }
 
@@ -113,11 +120,14 @@ function getElementFromModInfo(mod) {
 
         //Incompatible mod list
         (mod.incompatibilities?.length ? `<div>Incompatible Mods<br><small class="light-font description">You can't use it with one of these: ${mod.incompatibilities.map(modid => mods.find(mod_inner => modid == mod_inner.modid).name).join(', ')}</small></div>` : '') +
+        `<div style="display: inline-flex;">` +
         //Download Button
-        (build.url ? `<div><a class="light-font waves-effect waves-light btn" href="${build.url}" target="_blank">Download</a></div>` : '') +
+        (build.url ? `<div style="padding: 5px;"><a class="light-font waves-effect waves-light btn" href="${build.url}" target="_blank">Download</a></div>` : '') +
 
-        // //Page Button
-        // (build.page ? `<div><a class="light-font waves-effect waves-light btn" href="${build.page}" target="_blank">Open Page</a></div>` : '') +
+        //Page Button
+        (mod.sources ? `<div style="padding: 5px;"><a class="light-font waves-effect waves-light btn" href="${mod.sources}" target="_blank">Sources</a></div>` : '') +
+        (mod.sources ? `<div style="padding: 5px;"><a class="light-font waves-effect waves-light btn" href="${mod.sources}/issues" target="_blank">Issues</a></div>` : '') +
+        `</div>` + 
         `</div>` +
         `</li>`;
 }
@@ -136,7 +146,8 @@ function rulesCheck(mod) {
         && mods.find(mod => mod.modid == "sodiummac" && mod.versions.find(version => version.target_version.includes(typeOptions.version)) != undefined)) {
         return false
     }
-    if (mod.traits.length != 0)
+    if ((mod.obsolete == true || mod.versions.find(version => version.target_version.includes(typeOptions.version)).obsolete == true) && !typeOptions.obsolete) return false
+    if (mod.traits != undefined && mod.traits.length != 0)
         for (const rule of mod.traits) {
             if (rule == "ssg-only" && typeOptions.run == "rsg") return false
             if (rule == "rsg-only" && typeOptions.run == "ssg") return false
