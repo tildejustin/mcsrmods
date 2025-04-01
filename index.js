@@ -61,7 +61,8 @@ versionMap = new Map([
     ["20w14infinite", "1.15.2"],
     ["22w13oneblockatatime", "1.18.2"],
     ["23w13a_or_b", "1.19.4"],
-    ["24w14potato", "1.20.4"]
+    ["24w14potato", "1.20.4"],
+    ["25w14craftmine", "1.21.5"],
 ])
 
 function compareVersion(one, two) {
