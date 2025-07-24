@@ -42,7 +42,7 @@ function initResources() {
     if (compareVersion(typeOptions.version, "1.13.2") == 1) {
         fabric_text = "The following mods use the <a href=\"https://fabricmc.net/use/installer/\">Fabric Loader</a>."
     } else {
-        fabric_text = "The following mods use <a href=\"https://legacyfabric.net/downloads.html\">Legacy Fabric</a>. Legal MultiMC instance <a href=\"https://github.com/Minecraft-Java-Edition-Speedrunning/legacy-fabric-instance-generator/releases\">here</a>."
+        fabric_text = "The following mods use Legacy Fabric. Legal MultiMC instances <a href=\"https://github.com/Minecraft-Java-Edition-Speedrunning/legacy-fabric-instance-generator/releases\">here</a>."
     }
     var optifine_text = ""
     if (compareVersion(typeOptions.version, "1.7.2") <= 0) {
