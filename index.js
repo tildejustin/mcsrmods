@@ -77,10 +77,13 @@ function compareVersion(one, two) {
 }
 
 $(document).ready(() => {
-    let promise = fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/schema-6/important_versions.json").then(response => response.json()).then(it => minecraft_versions.push(...it)).then(_ => initVersions())
-    fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/schema-6/mods.json").then(response => response.json()).then(async json => {
-        // wait for initVersions to have gone through, so correct OS is detected
-        await promise;
+  Promise.all([
+    fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/schema-6/important_versions.json"),
+    fetch("https://raw.githubusercontent.com/tildejustin/mcsr-meta/schema-6/mods.json"),
+  ].map(p => p.then(r => r.json()))
+  ).then(([iv, json]) => {
+        minecraft_versions.push(...iv);
+        initVersions();
         for (const mod of json.mods) {
             mods.push(mod)
         }
